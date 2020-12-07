@@ -1,4 +1,5 @@
 # IOKranf
+
 Educational library in Javascript that emulate a "console" with simple println and input command
 
 This javascript library is inspired by the great C's <iostream.h> library. 
@@ -66,7 +67,7 @@ Here is a small JavaScript demonstration program (it's really self-explanatory!)
 ```
 
 Here is a video-screen-capture of the execution of the above program:
-
+![demo_gif](https://github.com/Kranf99/IOKranf/blob/main/demo.gif)
 
 You get more documentation (although a little bit outdated) <a href="https://bitbucket.org/sumukhbarve/iocream/src">here</a>.
 
