@@ -1,6 +1,8 @@
 # IOKranf
 
-Educational library in Javascript that emulate a "console" with simple println and input command
+Educational library in Javascript that is great for kids to learn programming. 
+
+This library emulates a "console" with simple println and input command. 
 
 This javascript library is inspired by the great C's <iostream.h> library. 
 
