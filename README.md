@@ -22,7 +22,7 @@ I wanted a quick and easy way to teach how to code to my 3 kids (Cassian, Darian
 
 Initially, I started using Python but there are several things that keept me away from Python:
 * The Python syntax wasn't the easiest one for the kids (especially the "for" loops).
-* Another thing that profoundly bothered me with Python is that we spent more time in learning how to run the libraries written by others (giving the proper parameters in the right others,etc.) than we were spending time in actually learning algorithms, code complexity (O(N)) of algorithms, etc. and, in general, how to create good code.
+* Another thing that profoundly bothered me with Python is that we spent more time in learning how to run the libraries written by others (giving the proper parameters in the right order,etc.) than we were spending time in actually learning algorithms, code complexity (O(N)) of algorithms, etc. and, in general, how to create good code.
 * The coding environment in Python is terribly and horribly bloated (a complete Python environment often takes more than 1GB of hard drive space)!
 * I wanted an easy debugger where you can execute step-by-step the instructions, with a "watch" window to see the variables "moving" and this was not easy to setup in Python (are there any good debugger in Python?).
 * I wanted an programming environment that was directly available to everybody, everywhere on the planet.
