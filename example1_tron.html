@@ -23,8 +23,8 @@ function makeGrid(w,h)
 	t+="#\n";
 	for(i=0;i<h;i++) grid+=t;
 	t="";
-	for(i=0;i<w;i++) t+="#";
-	grid=t+grid+t;
+	for(i=0;i<gridWidth;i++) t+="#";
+	grid=t+"\n"+grid+t;
 }
 function setGrid(x,y,c)
 {
