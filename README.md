@@ -20,7 +20,7 @@ ioKranf.js is a simple library, allowing you to easily port your console-based c
 
 I wanted a quick and easy way to teach how to code to my 3 kids (Cassian, Darian and Lara).
 
-Initially, I started using Python but there are several things that keept me away from Python:
+Initially, I started using Python but there are several things that kept me away from Python:
 * The Python syntax wasn't the easiest one for the kids (especially the "for" loops).
 * Another thing that profoundly bothered me with Python is that we spent more time in learning how to run the libraries written by others (giving the proper parameters in the right order,etc.) than we were spending time in actually learning algorithms, code complexity (O(N)) of algorithms, etc. and, in general, how to create good code.
 * The coding environment in Python is terribly and horribly bloated (a complete Python environment often takes more than 1GB of hard drive space)!
