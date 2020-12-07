@@ -27,7 +27,7 @@ Initially, I started using Python but there are several things that kept me away
 * I wanted an easy debugger where you can execute step-by-step the instructions, with a "watch" window to see the variables "moving" and this was not easy to setup in Python (are there any good debugger in Python?).
 * I wanted a programming environment that was directly available to everybody, everywhere on the planet.
 
-Then, I tried to use the "scratch" programming language. "Scratch" is a nice language for the very young. But, when your kids are around 10-12 years old, you want to teach them how to create "good" code: You want to talk about algorithmics, procedural/OO programming, data structures,etc. with them. ...And "Scratch" is not a good idea for that (i.e. Writing a "quicksort" in scratch is a headache!).
+Then, I tried to use the "scratch" programming language. "Scratch" is a nice language for the very young. But, when your kids are around 10-12 years old, you want to teach them how to create "good" code: You want to talk with them about algorithmics, procedural programming, data structures,etc. ...And "Scratch" is not a good idea for that (i.e. Writing a "quicksort" in scratch is a headache!).
 
 Thereafter, I found the excellent "iocream" library. It almost solved all the issues detailed here above ...but this library is still very cumbersome in the way you need to write the "input" functions: i.e. you need to use "call-back" functions and this adds an extra layer of un-needed complexity to your code that makes your code very difficult to understand for the younglings. So I rewrote the "input" functions from the "iocream" library to make them much easier to use "et voilà!" the "IOKranf" library was born! Enjoy!
 
