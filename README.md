@@ -33,7 +33,7 @@ The IOKranf library has the following advantages:
 * It offers an easy programming syntax (the syntax of Javascript is very easy!) 
 * It offers a great debugger (the one integrated in Firefox is really good!)
 * It's accessible everywhere easily (because everybody has Firefox or Chrome installed!)
-* It's not bloated: it's a single 15KB file!
+* It's not bloated: it's a single 15KB file! (the only required file is the file "lib/iokranf.js")
 
 In the forecoming years, i intend to post many examples of usage: sorting algorithms, searching algorithms, graph algorithms, etc.
 
