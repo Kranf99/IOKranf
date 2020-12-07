@@ -25,17 +25,17 @@ Initially, I started using Python but there are several things that keept me awa
 * Another thing that profoundly bothered me with Python is that we spent more time in learning how to run the libraries written by others (giving the proper parameters in the right order,etc.) than we were spending time in actually learning algorithms, code complexity (O(N)) of algorithms, etc. and, in general, how to create good code.
 * The coding environment in Python is terribly and horribly bloated (a complete Python environment often takes more than 1GB of hard drive space)!
 * I wanted an easy debugger where you can execute step-by-step the instructions, with a "watch" window to see the variables "moving" and this was not easy to setup in Python (are there any good debugger in Python?).
-* I wanted an programming environment that was directly available to everybody, everywhere on the planet.
+* I wanted a programming environment that was directly available to everybody, everywhere on the planet.
 
-Then, I tried to use the "scratch" programming language. "Scratch" is a nice language for the very young. But, when your kids are around 10-12 years old, you want to teach them how to create "good" code: You want to talk about algorithmics, functional programming, with them. ...And "Scratch" is not a good idea for that (i.e. Writing a "quicksort" in scratch is a headache!).
+Then, I tried to use the "scratch" programming language. "Scratch" is a nice language for the very young. But, when your kids are around 10-12 years old, you want to teach them how to create "good" code: You want to talk about algorithmics, functional programming, data structures,etc. with them. ...And "Scratch" is not a good idea for that (i.e. Writing a "quicksort" in scratch is a headache!).
 
-Thereafter, I found the excellent "iocream" library. It almost solved all my issues with the other options detailed here above ...but this library is still very cumbersome in the way you need to write the "input" functions: i.e. you need to use "call-back" functions and this adds an extra layer of un-needed complexity to your code that makes your code very difficult to understand for the younglings. So I rewrote the "input" functions from the "iocream" library to make them much easier to use "et voilà!" the "IOKranf" library was born! Enjoy!
+Thereafter, I found the excellent "iocream" library. It almost solved all the issues detailed here above ...but this library is still very cumbersome in the way you need to write the "input" functions: i.e. you need to use "call-back" functions and this adds an extra layer of un-needed complexity to your code that makes your code very difficult to understand for the younglings. So I rewrote the "input" functions from the "iocream" library to make them much easier to use "et voilà!" the "IOKranf" library was born! Enjoy!
 
 
 # What's the advantage of using this library to learn how to code?
 
 The IOKranf library has the following advantages: 
-* It offers progamming language with an easy  syntax (the syntax of Javascript is very easy!) 
+* It offers to code in a progamming language with a very easy syntax (the syntax of Javascript is very easy!) 
 * It offers a great debugger (the one integrated in Firefox is really good!)
 * It's accessible everywhere easily (because everybody has Firefox or Chrome installed!)
 * It's not bloated: it's a single 15KB file! The only required file is the file "lib/iokranf.js". There are no dependencies to any third-party library (such as jQuery, Angular,etc.). 
@@ -46,6 +46,8 @@ In the forecoming years, i intend to post many examples of usage: sorting algori
 The file "example1_tron.html" shows how to create a simple "TRON" game (also known as "SNAKE" game), to get you started!
 
 Who will be the first one to make a Tetris game? 
+
+Don't forget to "fork" this repository to get an update when I'll be adding new content!
 
 
 # Quick Start Guide
