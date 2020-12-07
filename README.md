@@ -40,6 +40,7 @@ The IOKranf library has the following advantages:
 * It's accessible everywhere easily (because everybody has Firefox or Chrome installed!)
 * It's not bloated: it's a single 15KB file! The only required file is the file "lib/iokranf.js". There are no dependencies to any third-party library (such as jQuery, Angular,etc.). 
 * This library is very simple to use: You only need to learn the Javascript syntax any nothing else. No need to learn the syntax of any third-party complex & cumbersome library (such as jQuery, Angular,etc.). In this way, you can really focus on what really matters: algorithmics, data structure, clever code.
+* To edit your code you can use any text editor (e.g. notepad) but i suggest you to use <a href="https://code.visualstudio.com/">Visual Studio Code</a> because it has code-completion, syntax-coloring and even a nice javascript debugger directly accessible inside.
 
 In the forecoming years, i intend to post many examples of usage: sorting algorithms, searching algorithms, graph algorithms, etc.
 
