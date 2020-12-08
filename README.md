@@ -48,19 +48,19 @@ The file "example1_tron.html" shows how to create a simple "TRON" game (also kno
 
 Who will be the first one to make a Tetris game? 
 
-Don't forget to "fork" this repository to get an update when I'll be adding new content!
+Don't forget to "star" this repository to get an update when I'll be adding new content!
 
 
 # Quick Start Guide
 
 The library gives access to a few different functions. The most important ones are:
 ```
-  println(): Prints a message inside the "console".
-  printhr(): Prints a large horizontal bar inside the "console".
-  input():   Creates a inline input box inside the "console"; the user must hit Enter to submit the input.
-  click():   Creates a horizontal list of buttons for the user to click on.
-  clr():     Clear all text inside the "console".
-  close():   If your program has finished, you can clearly indicate that by calling close().
+  io.println()    : Prints a message inside the "console".
+  io.printhr()    : Prints a large horizontal bar inside the "console".
+  yield io.input(): Creates a inline input box inside the "console"; the user must hit Enter to submit the input.
+  yield io.click(): Creates a horizontal list of buttons for the user to click on.
+  io.clr()        : Clear all text inside the "console".
+  io.close()      : If your program has finished, you can clearly indicate that by calling close().
 ```
 
 Here is a small JavaScript demonstration program (it's really self-explanatory!):
