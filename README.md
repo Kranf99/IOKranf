@@ -82,16 +82,13 @@ Here is a video-screen-capture of the execution of the above program:
 ![demo_gif](https://github.com/Kranf99/IOKranf/blob/main/demo.gif)
 
 Inside the "demos" directory, you'll find a few games made with the IOKranf library:
-* A simple text-based adventure in the same spirit of Zork: 
-
+* A simple text-based adventure in the same spirit of Zork: <br>
   See the file "zork_mini.html" (or "zork_mini_FR.html" for the french version).
   
-* A simple "Tron/Snake" game: 
-
+* A simple "Tron/Snake" game: <br>
   See the file "tron.html"
   
-* A simple variation of the "Tetris" game.
-
+* A simple variation of the "Tetris" game.<br>
   To create this game, we wrote first several "intermediary", simpler projects:
    - "draw_square_v1.html" (or "draw_square_v1_FR.html" for the french version).
    - "draw_square_v2.html" (or "draw_square_v2_FR.html" for the french version).
@@ -109,7 +106,7 @@ Inside the "demos" directory, you'll find a few games made with the IOKranf libr
    - show a <a target="_blank" href="https://tetris.fandom.com/wiki/Ghost_piece">ghost piece</a>
    - <a target="_blank" href="https://tetris.fandom.com/wiki/Tetris_Guideline">add T-Spin, a lock-delay (difficult!).</a>
    
-* A fast Mental Calculation game where you need to compute an addition in a limited amount of time.
+* A fast Mental Calculation game where you need to compute an addition in a limited amount of time.<br>
   See the file "Mental_calculation.html"
 
 You'll get more documentation (although a little bit outdated) <a href="https://bitbucket.org/sumukhbarve/iocream/src" target="_blank">here</a>.
