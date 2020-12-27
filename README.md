@@ -86,7 +86,7 @@ You'll get more documentation (although a little bit outdated) <a href="https://
 # The Demos
 
 Inside the "demos" directory, you'll find a few games made with the IOKranf library:
-* A simple text-based adventure in the same spirit of Zork: <br>
+* A simple text-based adventure in the same spirit of <a target="_blank" href="https://en.wikipedia.org/wiki/Zork">Zork</a>: <br>
   See the file "zork_mini.html" (or "zork_mini_FR.html" for the french version).
   
 * A simple "Tron/Snake" game: <br>
@@ -115,8 +115,8 @@ Inside the "demos" directory, you'll find a few games made with the IOKranf libr
   
 # Closing notes.
 
-The library is under "MIT License", so that anybody can use it for free!
-Don't hesitate to contact me if you want to propose some improvements the libary!
+The library is under "MIT License", so that anybody can use it for free!<br>
+Don't hesitate to contact me if you want to propose some improvements the libary!<br>
 Have fun!
 
 Frank
