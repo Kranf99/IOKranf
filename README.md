@@ -83,24 +83,32 @@ Here is a video-screen-capture of the execution of the above program:
 
 Inside the "demos" directory, you'll find a few games made with the IOKranf library:
 * A simple text-based adventure in the same spirit of Zork: 
+
   See the file "zork_mini.html" (or "zork_mini_FR.html" for the french version).
+  
 * A simple "Tron/Snake" game: 
+
   See the file "tron.html"
+  
 * A simple variation of the "Tetris" game.
+
   To create this game, we wrote first several "intermediary", simpler projects:
    - "draw_square_v1.html" (or "draw_square_v1_FR.html" for the french version).
    - "draw_square_v2.html" (or "draw_square_v2_FR.html" for the french version).
    - "simple_tetrisk_v0.html"
    - "simple_tetrisk_v1.html": This project already does everything what the final "tetrisk.html" project does but the code can be improved.
+   
   The final "Tetromino" game is inside the file "tetrisk.html" (or "tetrisk_FR.html" for the french version).
   This "Tetromino" game is complete & playable: It has music, soundfx, display of next piece, high score.
   Furthermore, it works in all browsers that supports a keyboard (i.e. you need the "arrow keys" to move the tetromino)!
   And it's really fun to play!
+  
   Possible improvements: 
    - add a "hold" key and a "hard drop" key 
    - implement the <a target="_blank" href="https://tetris.fandom.com/wiki/Random_Generator">7-bag Random Generator</a>
    - show a <a target="_blank" href="https://tetris.fandom.com/wiki/Ghost_piece">ghost piece</a>
    - <a target="_blank" href="https://tetris.fandom.com/wiki/Tetris_Guideline">add T-Spin, a lock-delay (difficult!).</a>
+   
 * A fast Mental Calculation game where you need to compute an addition in a limited amount of time.
   See the file "Mental_calculation.html"
 
