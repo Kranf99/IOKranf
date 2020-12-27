@@ -114,7 +114,7 @@ Inside the "demos" directory, you'll find a few games made with the IOKranf libr
 # Closing notes.
 
 The library is under "MIT License", so that anybody can use it for free!<br>
-Don't hesitate to contact me if you want to propose some improvements the libary!<br>
+Don't hesitate to contact me if you want to propose some improvements to the libary!<br>
 Have fun!
 
 Frank
