@@ -13,7 +13,9 @@ The actual code of the IOKranf library is a mixture of several projects:
 
 Thanks for the many contributors to these projects: Without them this library would not exist!
 
-ioKranf.js is a simple library, allowing you to easily port your console-based code to Javascript and run it in a browser of your choice. Using ioKranf.js, all programs/projects written during any introductory course to Computer Science, irrespective of the language used or rigor, can be QUICKLY and ELEGANTLY rewritten in Javascript. The primary intention of this library is to encourage new programmers to explore coding, and to engage in prototype-based programming.
+ioKranf.js is a simple library, allowing you to easily port your console-based code to Javascript and run it in a browser of your choice. 
+
+Using ioKranf.js, all programs/projects written during any introductory course to Computer Science, irrespective of the language used or rigor, can be QUICKLY and ELEGANTLY rewritten in Javascript. The primary intention of this library is to encourage new programmers to explore coding, and to engage in prototype-based programming.
 
 
 # Why still another educational library to learn how to code?
@@ -40,13 +42,9 @@ The IOKranf library has the following advantages:
 * It's accessible everywhere easily (because everybody has Firefox or Chrome installed!)
 * It's not bloated: it's a single 15KB file! The only required file is the file "lib/iokranf.js". There are no dependencies to any third-party library (such as jQuery, Angular,etc.). 
 * This library is very simple to use: You only need to learn the Javascript syntax any nothing else. No need to learn the syntax of any third-party complex & cumbersome library (such as jQuery, Angular,etc.). In this way, you can really focus on what really matters: algorithmics, data structure, clever code.
-* To edit your code you can use any text editor (e.g. notepad) but i suggest you to use <a href="https://code.visualstudio.com/">Visual Studio Code</a> because it has code-completion, syntax-coloring and even a nice javascript debugger directly accessible inside.
+* To edit your code you can use any text editor (e.g. notepad) but i suggest you to use <a href="https://code.visualstudio.com/">Visual Studio Code</a> because it's the best Javascript editor: It's 100% free and it has code-completion, syntax-coloring and even a very nice javascript debugger directly accessible inside.
 
 In the forecoming years, i intend to post many examples of usage: sorting algorithms, searching algorithms, graph algorithms, etc.
-
-The file "example1_tron.html" shows how to create a simple "TRON" game (also known as "SNAKE" game), to get you started!
-
-Who will be the first one to make a Tetris game? 
 
 Don't forget to "star" this repository to get an update when I'll be adding new content!
 
@@ -83,7 +81,7 @@ Here is a video-screen-capture of the execution of the above program:
 
 You'll get more documentation (although a little bit outdated) <a href="https://bitbucket.org/sumukhbarve/iocream/src" target="_blank">here</a>.
 
-# The Demos
+# The Demos and Examples
 
 Inside the "demos" directory, you'll find a few games made with the IOKranf library:
 * A simple text-based adventure in the same spirit of <a target="_blank" href="https://en.wikipedia.org/wiki/Zork">Zork</a>: <br>
