@@ -1,0 +1,340 @@
+<html>
+<head>
+  <title>Tetrisk!</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="lib/iokranf.js"></script>
+  <style>@font-face { font-family: joystix; src: url('media/joystix_monospace.ttf'); }</style>
+</head>
+<body>
+<pre id="iokranf_container" style="height: 730px; width:380px; font-size:32pt; font-family: joystix; line-height:34px"></pre>
+<div style="position:absolute; width:200px; left:460px; top:10px ">
+<img src="media/tetrisk.jpg" width="230" height="200" alt="tetrisk">
+<pre id="container2" style="height: 350px; width:210px; font-size:8pt; font-family: joystix; line-height:9px"></pre>
+</div>
+<script>
+"use strict";
+var musicA=new Audio("media/tetrisk_Music_Blitz.m4a"); musicA.loop=true; musicA.volume=0.5;
+var musicB=new Audio("media/tetrisk_Music_99.m4a"); musicB.loop=true; musicB.volume=0.35;
+var musicC=new Audio("media/tetrisk_Music_GameBoy.m4a"); musicC.loop=true; musicC.volume=0.30;
+var io=new IOKranf('iokranf_container');
+var io2=new IOKranf('container2');
+co(function*(){
+var s="",n=10;
+var alarm;
+
+function plot( x,y, t) 
+{
+  if (y<0) return;
+  var p=y*(n+1)+x;
+  s=s.substring(0, p) + t + s.substring(p + 1);
+}
+
+function get(x,y) 
+{
+  if (y<0) return " ";
+  var position=y*11+x;
+  return s[position];
+}
+
+//  var s="***\n* *\n***\n";
+var emptyRow="*";
+function initializeS()
+{
+  s="";
+  var i;
+  for(i=0;i<n-2;i+=1) emptyRow=emptyRow+" "; // io.print("*");
+  emptyRow=emptyRow+"*\n"; //  io.println("*");
+  for(i=0;i<20;i+=1) s=s+emptyRow;
+
+  var bottomRow="";
+  for(i=0;i<n;i+=1) bottomRow=bottomRow+"*"; // io.print("*");
+  s=s+bottomRow;  
+}
+
+var pieceTetriskLetter=['A','B','C','D','E','F','G'];
+var pieceTetrisk=[
+// i
+[[[1,0],[1,-1],[1,-2],[1,-3]],
+ [[0,0],[1,0],[2,0],[3,0]],
+ [[1,0],[1,-1],[1,-2],[1,-3]],
+ [[0,0],[1,0],[2,0],[3,0]]],
+// l
+[[[1,0],[1,1],[1,2],[2,2]],
+ [[2,1],[0,1],[0,2],[1,1]],
+ [[1,0],[1,1],[1,2],[0,0]],
+ [[2,2],[2,1],[0,2],[1,2]]],
+// t
+[[[0,1],[1,1],[-1,1],[0,0]],
+ [[0,1],[1,1],[0,2],[0,0]],
+ [[0,1],[1,1],[-1,1],[0,2]],
+ [[0,1],[0,2],[-1,1],[0,0]]],
+ // c
+[[[0,1],[1,1],[1,0],[0,0]],
+ [[0,1],[1,1],[1,0],[0,0]],
+ [[0,1],[1,1],[1,0],[0,0]],
+ [[0,1],[1,1],[1,0],[0,0]]],
+// s
+[[[0,1],[1,0],[-1,1],[0,0]],
+ [[0,1],[1,2],[1,1],[0,0]],
+ [[0,1],[1,0],[-1,1],[0,0]],
+ [[0,1],[1,2],[1,1],[0,0]]],
+// z
+[[[0,1],[1,1],[-1,0],[0,0]],
+ [[1,1],[0,1],[0,2],[1,0]],
+ [[0,1],[1,1],[-1,0],[0,0]],
+ [[1,1],[0,1],[0,2],[1,0]]],
+// ll
+[[[0,1],[0,2],[-1,2],[0,0]],
+ [[1,2],[0,2],[-1,2],[-1,1]],
+ [[0,1],[1,1],[0,2],[0,3]],
+ [[0,1],[1,1],[-1,1],[1,2]]]
+]
+
+var piece_id=0;
+var piece_id_next=0;
+
+function drawPiece(x,y,orientation)
+{
+//  var dessin=String.fromCharCode(65+piece_id);  
+  var dessin=pieceTetriskLetter[piece_id];
+  var p=pieceTetrisk[piece_id][orientation];
+  plot(x+p[0][0],y+p[0][1],dessin);
+  plot(x+p[1][0],y+p[1][1],dessin);
+  plot(x+p[2][0],y+p[2][1],dessin);
+  plot(x+p[3][0],y+p[3][1],dessin);
+}
+
+function removePiece(x,y,orientation)
+{
+  var p=pieceTetrisk[piece_id][orientation];
+  plot(x+p[0][0],y+p[0][1],' ');
+  plot(x+p[1][0],y+p[1][1],' ');
+  plot(x+p[2][0],y+p[2][1],' ');
+  plot(x+p[3][0],y+p[3][1],' ');
+}
+
+function testCollisionPiece(x,y,orientation)
+{
+  var p=pieceTetrisk[piece_id][orientation];
+  return ((get(x+p[0][0],y+p[0][1])!=' ')||
+          (get(x+p[1][0],y+p[1][1])!=' ')||
+          (get(x+p[2][0],y+p[2][1])!=' ')||
+          (get(x+p[3][0],y+p[3][1])!=' '));
+}
+
+function isRowComplete(y)
+{
+    var i;
+    var c;
+    for(i=1;i<n;i++)
+    {
+       c=get(i,y);
+       if(c==' ') return false; 
+    } 
+    return true;
+}
+
+function printS()
+{
+  io.clr(); 
+//  io.print(s); return;
+  var s2=s;
+  s2=s2.replace(/\*/g,"<span style='color:808080'>&#x2588;</span>")
+  s2=s2.replace(/A/g,"<span style='color:01f1f2'>&#x2588;</span>")
+  s2=s2.replace(/B/g,"<span style='color:ef8201'>&#x2588;</span>")
+  s2=s2.replace(/C/g,"<span style='color:a001f1'>&#x2588;</span>")
+  s2=s2.replace(/D/g,"<span style='color:f8e608'>&#x2588;</span>")
+  s2=s2.replace(/E/g,"<span style='color:02f102'>&#x2588;</span>")
+  s2=s2.replace(/F/g,"<span style='color:f00001'>&#x2588;</span>")
+  s2=s2.replace(/G/g,"<span style='color:0100f1'>&#x2588;</span>")
+  io.print(s2); 
+}
+
+var piece_y=-1;
+var piece_o=0;
+var piece_x=4;
+var score=0;
+var lineClear=0;
+
+function increaseScore(x)
+{
+  score=score+x;
+  io2.clr();
+  io2.print("Score: "+score+"\n\nLines: "+lineClear+"\n\nNiveau: "+Math.floor(lineClear/10)+"\n\n\nNext:\n\n");
+
+  // display "piece_id_next"
+  if (piece_id_next==0)
+  {
+    var t="    AAAA";
+    t=t.replace(/A/g,"<span style='color:01f1f2'>&#x2588;</span>")
+    io2.println(t);
+  } else if (piece_id_next==1)
+  {
+    var l="    b\n    b\n    bb"
+    l=l.replace(/b/g,"<span style='color:ef8201'>&#x2588;</span>")
+    io2.println(l);
+  } else if (piece_id_next==2)
+  {
+    var tp="    ccc\n     c"
+  tp=tp.replace(/c/g,"<span style='color:a001f1'>&#x2588;</span>")
+    io2.println(tp);
+  } else if (piece_id_next==3)
+  {
+    var c="    dd\n    dd"
+  c=c.replace(/d/g,"<span style='color:f8e608'>&#x2588;</span>")
+    io2.println(c);
+  } else if (piece_id_next==4)
+  {
+    var s="     ee\n    ee"
+    s=s.replace(/e/g,"<span style='color:02f102'>&#x2588;</span>")
+    io2.println(s);
+  } else if (piece_id_next==5)
+  {
+    var z="    ff\n     ff"
+    z=z.replace(/f/g,"<span style='color:f00001'>&#x2588;</span>")
+    io2.println(z);
+  } else
+  {
+    var ll="    b\n    b\n   bb"
+    ll=ll.replace(/b/g,"<span style='color:0100f1'>&#x2588;</span>")
+    io2.println(ll);
+  } 
+  io2.println("\n\n\nControls: arrow keys");
+}
+
+function dropPiece()
+{
+  if (piece_y>=0) removePiece(piece_x,piece_y,piece_o);
+  piece_y+=1;
+ // plot(4,10,'F');
+  var collision=testCollisionPiece(piece_x,piece_y,piece_o);
+  if (collision==true)
+  {
+    drawPiece(piece_x,piece_y-1,piece_o);
+
+    // remove all complete rows
+    var y;
+    var counter=0;
+    for(y=0;y<20;y++)
+    {
+      if (isRowComplete(y))
+      {
+        counter++;
+        // remove row
+        var p=y*(n+1);
+        s=emptyRow+s.substr(0,p)+s.substr(p+n+1);
+        lineClear++;
+        increaseScore(100);
+      }
+    }
+    new Audio("media/tetrisk_land.mp3").play();
+    if(counter==4)
+    {
+      new Audio("media/tetrisk_tetris.mp3").play();
+    } else if (counter>0)
+    {
+      new Audio("media/tetrisk_line.mp3").play();
+    }
+    // prepare next piece
+    piece_id=piece_id_next;
+    piece_id_next=Math.floor(Math.random()*7);
+    increaseScore(0);  
+    // display new pièce on top
+    piece_y=0;
+    piece_o=0;
+    piece_x=4;
+
+    // test to detecte gameover
+    collision=testCollisionPiece(piece_x,piece_y,piece_o);
+    if (collision==true)
+    {
+      io2.println("\n\nGAME OVER")
+      io2.close();
+      musicA.pause(); musicA.currentTime=0;
+      musicB.pause(); musicB.currentTime=0;
+      musicC.pause(); musicC.currentTime=0;
+      new Audio("media/tetrisk_gameover.mp3").play();
+      return;
+    }
+  }
+  drawPiece(piece_x,piece_y,piece_o);
+  printS();
+
+  var speed=1000;
+  var level=Math.floor(lineClear/10);
+  speed=speed-20*level;
+  alarm = setTimeout(dropPiece,speed);
+}
+
+function keyPressed(event)
+{
+//	if (event.keyCode === 38) else { /*haut*/  } 
+  if (event.keyCode === 40)
+  { /*down*/  
+    increaseScore(1);
+    clearTimeout(alarm);
+    dropPiece();
+  } 
+  else if (event.keyCode === 39) 
+  { /*right*/  
+    removePiece(piece_x,piece_y,piece_o);
+    if (testCollisionPiece(piece_x+1,piece_y,piece_o)==false)
+    {
+      piece_x=piece_x+1;
+      new Audio("media/tetrisk_move.mp3").play();
+    }
+    drawPiece(piece_x,piece_y,piece_o);
+    printS();
+  } 
+  else if (event.keyCode === 37)
+   { /*left*/  
+    removePiece(piece_x,piece_y,piece_o);
+    if (testCollisionPiece(piece_x-1,piece_y,piece_o)==false)
+    {
+      piece_x=piece_x-1;
+      new Audio("media/tetrisk_move.mp3").play();
+    }
+    drawPiece(piece_x,piece_y,piece_o);
+    printS();
+   } 
+  else if ((event.keyCode === 32)||(event.keyCode === 38)) 
+  { /* space or up*/  
+    removePiece(piece_x,piece_y,piece_o);
+    var start_orientation=piece_o;
+    piece_o=piece_o+1;
+    if(piece_o==4) piece_o=0;
+    while (testCollisionPiece(piece_x,piece_y,piece_o)==true)
+    {
+      piece_o=piece_o+1;
+      if(piece_o==4) piece_o=0;
+    }
+    drawPiece(piece_x,piece_y,piece_o);
+    printS();
+    if(start_orientation!=piece_o)
+    {
+      new Audio("media/tetrisk_rotate.mp3").play();
+    }
+  } 
+}
+
+{
+  piece_id_next=Math.floor(Math.random()*7);
+  increaseScore(0);
+  piece_id=piece_id_next; piece_id_next=Math.floor(Math.random()*7);
+
+  io.println("\nSelect\n  Music:\n");
+  var r=yield io.click("99","GameBoy","Blitz","No Music");
+  if(r=="99") musicB.play();
+  else if(r=="GameBoy") musicC.play();
+  else if(r=="Blitz") musicA.play();
+  io.clr();
+  initializeS();
+  increaseScore(0);
+  document.addEventListener("keydown",keyPressed);
+  alarm = setTimeout(dropPiece,1);
+}
+})
+</script>
+</body>
+</html>

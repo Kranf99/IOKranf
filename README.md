@@ -59,6 +59,7 @@ The library gives access to a few different functions. The most important ones a
   io.printhr()    : Prints a large horizontal bar inside the "console".
   yield io.input(): Creates a inline input box inside the "console"; the user must hit Enter to submit the input.
   yield io.click(): Creates a horizontal list of buttons for the user to click on.
+  yield sleep(ms) : Sleep ms milliseconds (and refresh the screen during sleep).
   io.clr()        : Clear all text inside the "console".
   io.close()      : If your program has finished, you can clearly indicate that by calling close().
 ```
@@ -80,7 +81,30 @@ Here is a small JavaScript demonstration program (it's really self-explanatory!)
 Here is a video-screen-capture of the execution of the above program:
 ![demo_gif](https://github.com/Kranf99/IOKranf/blob/main/demo.gif)
 
-You get more documentation (although a little bit outdated) <a href="https://bitbucket.org/sumukhbarve/iocream/src" target="_blank">here</a>.
+Inside the "demos" directory, you'll find a few games made with the IOKranf library:
+* A simple text-based adventure in the same spirit of Zork: 
+  See the file "zork_mini.html" (or "zork_mini_FR.html" for the french version).
+* A simple "Tron/Snake" game: 
+  See the file "tron.html"
+* A simple variation of the "Tetris" game.
+  To create this game, we wrote first several "intermediary", simpler projects:
+   - "draw_square_v1.html" (or "draw_square_v1_FR.html" for the french version).
+   - "draw_square_v2.html" (or "draw_square_v2_FR.html" for the french version).
+   - "simple_tetrisk_v0.html"
+   - "simple_tetrisk_v1.html": This project already does everything what the final "tetrisk.html" project does but the code can be improved.
+  The final "Tetromino" game is inside the file "tetrisk.html" (or "tetrisk_FR.html" for the french version).
+  This "Tetromino" game is complete & playable: It has music, soundfx, display of next piece, high score.
+  Furthermore, it works in all browsers that supports a keyboard (i.e. you need the "arrow keys" to move the tetromino)!
+  And it's really fun to play!
+  Possible improvements: 
+   - add a "hold" key and a "hard drop" key 
+   - implement the <a target="_blank" href="https://tetris.fandom.com/wiki/Random_Generator">7-bag Random Generator</a>
+   - show a <a target="_blank" href="https://tetris.fandom.com/wiki/Ghost_piece">ghost piece</a>
+   - <a target="_blank" href="https://tetris.fandom.com/wiki/Tetris_Guideline">add T-Spin, a lock-delay (difficult!).</a>
+* A fast Mental Calculation game where you need to compute an addition in a limited amount of time.
+  See the file "Mental_calculation.html"
+
+You'll get more documentation (although a little bit outdated) <a href="https://bitbucket.org/sumukhbarve/iocream/src" target="_blank">here</a>.
 
 The library is under "MIT License", so that anybody can use it for free!
 

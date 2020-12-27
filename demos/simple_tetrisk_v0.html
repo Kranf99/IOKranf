@@ -1,0 +1,76 @@
+<html>
+<head>
+  <title>Learn Javascript!</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="lib/iokranf.js"></script>
+  <style>@font-face { font-family: Square; src: url('media/square.ttf'); }</style>
+</head>
+<body>
+<pre id="iokranf_container" style="height: 680px; font-size:26pt; font-family: Square;"></pre>
+<script>
+"use strict";
+var io=new IOKranf('iokranf_container');
+co(function*(){
+
+var music=new Audio("media/tetrisk_Music_GameBoy.m4a"); music.loop=true; music.volume=0.3;
+var s;
+ 
+function plot(x,y,t)
+{
+  var p=y*11+x;
+  s=s.substring(0,p)+t+s.substring(p+1);
+}
+
+function initializeS()
+{
+  s="*        *\n"+
+    "*        *\n"+
+    "*        *\n"+
+    "*        *\n"+
+    "*        *\n"+
+    "*        *\n"+
+    "*        *\n"+
+    "*        *\n"+
+    "*        *\n"+
+    "*        *\n"+
+    "*        *\n"+
+    "*        *\n"+
+    "*        *\n"+
+    "*        *\n"+
+    "*        *\n"+
+    "*        *\n"+
+    "*        *\n"+
+    "*        *\n"+
+    "**********";
+}
+
+function drawTetrisL(x,y)
+{
+    plot(x,y,'#');
+    plot(x,y+1,'#');
+    plot(x,y+2,'#');
+    plot(x+1,y+2,'#');
+}
+
+{
+  io.println("Ready?");
+  yield io.click("Yes!");
+  io.clr();
+  music.play();
+  var y=0;
+  for(y=0;y<16;y+=1)
+  {
+    initializeS();
+    drawTetrisL(4,y);
+    yield sleep(200);
+    io.clr(); io.print(s);
+  }
+  new Audio("media/tetrisk_land.mp3").play();
+  music.pause(); music.currentTime=0;
+  io.close();
+}
+})
+</script>
+</body>
+</html>

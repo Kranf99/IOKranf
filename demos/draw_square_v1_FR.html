@@ -1,0 +1,60 @@
+<html>
+<head>
+  <title>Learn Javascript!</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="lib/iokranf.js"></script>
+  <style>@font-face { font-family: Square; src: url('media/square.ttf'); }</style>
+</head>
+<body>
+<h1>Learn Javascript</h1>
+<pre id="iokranf_container" style="height: 600px; font-size:6pt; font-family: Square;"></pre>
+<script>
+"use strict";
+var io=new IOKranf('iokranf_container');
+co(function*(){
+   var j;
+  io.println('Hello World!');
+  io.printhr();
+  var n=yield io.input('Donnez la taille du carré:');
+  if(n==1)
+  io.print("*");
+  else
+  {
+    var i;
+    for(i=0;i<n;i+=1)
+    {
+      io.print("*");
+    }
+    io.println("");
+
+    for(j=0;j<n-2;j+=1)
+    {
+      io.print("*");
+      for(i=0;i<n-2;i+=1)
+      {
+        io.print(" ");
+      }
+      io.println("*");
+    }
+    for(i=0;i<n;i+=1)
+    {
+      io.print("*");
+    }
+    io.printhr();
+  }
+/*  var ligne='**********';
+  io.println(ligne);
+  io.println('*        *');
+  io.println('*        *');
+  io.println('*        *');
+  io.println('*        *');
+  io.println('*        *');
+  io.println('*        *');
+  io.println('*        *');
+  io.println('**********');
+*/
+io.close();
+})</script>
+</body>
+</html>

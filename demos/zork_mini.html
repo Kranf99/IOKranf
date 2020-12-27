@@ -1,0 +1,103 @@
+<html>
+<head>
+  <title>Mini Zork</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="lib/iokranf.js"></script>
+</head>
+<body>
+<h1>Mini Zork</h1>
+<pre id="iokranf_container" style="height: 530px; width: 75%; font-size:16pt;"></pre>
+<div style="position:absolute; width:20%; left:78%; top:45px ">
+<pre id="container2" style="height: 350px; font-size:16pt;">
+</pre>
+</div>
+<script>
+"use strict";
+var io=new IOKranf('iokranf_container');
+var io2=new IOKranf('container2');
+var status="naked";
+
+function *pageCourt()
+{
+  io.printhr();
+  new Audio("media/tetrisk_move.mp3").play();
+  io.printImage("media/zork_castle_court.jpg","300px");
+  io.println("\nYou are standing in the interior court of the castle.");
+  var x=yield io.click("Go to the Castle Gate","Enter the armory");
+  if (x=="Enter the armory") co(pageArmory());
+  else if (x=="Go to the Castle Gate") pageGate();
+}
+
+function *pageArmory()
+{
+  new Audio("media/tetrisk_move.mp3").play();
+  io.printhr();
+  io.printImage("media/zork_castle_armory.jpg","300px");
+  io.println("\nYou are in the armory.There are plenty of weapons and a bottle.");
+  for(;;)
+  {
+    var x=yield io.click("Take a weapon","Drink the bottle","Go back in the court");
+    if (x=="Take a weapon") 
+    {
+      if (status=="naked")
+      {
+        new Audio("media/tetrisk_land.mp3").play();
+        io2.clr();
+        io2.printImage("media/zork_inventory2.png","120px");
+        io.println("You now have a weapon.");
+        status="armed";
+      } else if (status=="armed")
+      {
+        io.println("You already have a weapon.");
+      } else if (status=="grue")
+      {
+        io.println("You don't have hands to take any weapons.");
+      }
+    } else if (x=="Drink the bottle") 
+    {
+      if (status=="grue")
+      {
+        io.println("Nothing happens.");
+      } else
+      {
+        new Audio("media/tetrisk_tetris.mp3").play();
+        io2.clr();
+        io2.printImage("media/zork_grue.png","120px");
+        io.println("You are transformed in a <a target='_blank' href='https://zork.fandom.com/wiki/Grue'>Grue</a>!");
+        status="grue";
+      }
+    }
+    else if (x=="Go back in the court") break; 
+  }
+  co(pageCourt()); 
+}
+
+function pageGate()
+{
+  io.printhr();
+  io.printImage("media/zork_castle_gate.jpg","300px");
+  io.println("\nYou arrrive at the gate.\n"+
+             "There is an <a target='_blank' href='https://zork.fandom.com/wiki/Grue'>Evil Grue</a> waiting for you there!");
+  if (status=="grue")
+  {
+    io.println("The Grue look at you and let you pass.\nYou escaped the castle!\nYou win.");
+    new Audio("media/tetrisk_line.mp3").play();
+  } else
+  {
+    new Audio("media/tetrisk_gameover.mp3").play();
+    io.println("The Grue kills you!\nYou Lost.");
+  }
+  io.close();
+}
+
+{
+  // start of the game!
+  io.autoScroll(true);
+  io.println("OBJECTIVE: You need to escape from the castle.\n");
+  io2.printImage("media/zork_inventory1.png","120px");
+  co(pageCourt());
+}
+</script>
+</body>
+</html>

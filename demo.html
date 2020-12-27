@@ -11,7 +11,7 @@
 <script>
 "use strict";
 var io=new IOKranf('iokranf_container');
-IOKranf_co(function*(){
+co(function*(){
 
   io.println('Hello!');
   io.printhr();
@@ -20,7 +20,6 @@ IOKranf_co(function*(){
   var r=yield io.click('yes','no');
   io.println('you clicked '+r+'\n');
 	
-//	var s=yield io.inputarea('Enter your name:');
   var s=yield io.input('Enter your name:');
   io.println('Hello '+s+'\n');
   io.close();

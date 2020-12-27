@@ -1,0 +1,61 @@
+<html>
+<head>
+  <title>Mental calculation</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="lib/iokranf.js"></script>
+</head>
+<body>
+<h1>Mental calculation</h1>
+<pre id="iokranf_container" style="height: 530px; width: 75%; font-size:16pt;"></pre>
+<div style="position:absolute; width:20%; left:78%; top:45px ">
+<pre id="container2" style="height: 350px; font-size:16pt;"></pre>
+</div>
+<script>
+"use strict";
+var io=new IOKranf('iokranf_container');
+var io2=new IOKranf('container2');
+
+var alarm;
+
+var startTime=new Date();
+var maxTime=5;
+var endTime=startTime-(-maxTime*1000);
+var response;
+function refreshTimer()
+{
+	var now=new Date();
+    var remainingTime=endTime-now;
+    io2.clr();
+    if (remainingTime<=0)
+    {
+      io2.println("Remaining time:\n 0 sec.");
+      io.println("No more time: You lost! The correct answer was "+response);
+      io.close();
+      return;
+    }
+    io2.println("Remaining time:\n "+Math.round(remainingTime/100)/10+" sec.");
+    alarm=setTimeout(refreshTimer,100);
+}
+
+co(function*(){
+  var maxNumber=10;
+  var a=Math.floor(Math.random()*maxNumber+1);
+  var b=Math.floor(Math.random()*maxNumber+1);
+  response=a+b;
+  alarm=setTimeout(refreshTimer,100);
+  var x=yield io.input(a+" + "+b+" =? ");
+  clearTimeout(alarm);
+  if (Number(x)!=response) io.println("You lost! The correct answer was "+response);
+  else
+  {
+     var now=new Date();
+     var elapsedTime=now-startTime;
+	 io.println("You win in "+Math.round(elapsedTime/10)/100+" second(s) (or "+elapsedTime+" milliseconds).");
+  }
+  io.close();
+})
+
+</script>
+</body>
+</html>

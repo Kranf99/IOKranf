@@ -1,0 +1,632 @@
+<html>
+<head>
+  <title>Tetrisk!</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="lib/iokranf.js"></script>
+  <style>@font-face { font-family: joystix; src: url('media/joystix_monospace.ttf'); }</style>
+</head>
+<body>
+<pre id="iokranf_container" style="height: 730px; width:380px; font-size:32pt; font-family: joystix; line-height:34px"></pre>
+<div style="position:absolute; width:200px; left:460px; top:10px ">
+<img src="media/tetrisk.jpg" width="230" height="200" alt="tetrisk">
+<pre id="container2" style="height: 350px; width:210px; font-size:8pt; font-family: joystix; line-height:9px"></pre>
+</div>
+<!--
+<button style="position:absolute; left:250px; top:780px; width:200px; height:80px" onclick="tourner();">rotate</button>
+<button style="position:absolute; left:50px; top:865px; width:200px; height:80px" onclick="aller_a_gauche();">&lt;=</button>
+<button style="position:absolute; left:455px; top:865px; width:200px; height:80px" onclick="aller_a_droite();">=></button>
+<button style="position:absolute; left:250px; top:955px; width:200px; height:80px" onclick="descendre();">Fast Drop</button>
+-->
+<script>
+"use strict";
+var musicA=new Audio("media/tetrisk_Music_Blitz.m4a"); musicA.loop=true; musicA.volume=0.5;
+var musicB=new Audio("media/tetrisk_Music_99.m4a"); musicB.loop=true; musicB.volume=0.35;
+var musicC=new Audio("media/tetrisk_Music_GameBoy.m4a"); musicC.loop=true; musicC.volume=0.30;
+var io=new IOKranf('iokranf_container');
+var io2=new IOKranf('container2');
+var s="",n=10;
+var reveil;
+
+function plot( x,y, t) 
+{
+  if (y<0) return;
+  var p=y*(n+1)+x;
+  s=s.substring(0, p) + t + s.substring(p + 1);
+}
+
+function get(x,y) 
+{
+  if (y<0) return " ";
+  var position=y*11+x;
+  return s[position];
+}
+
+//  var s="***\n* *\n***\n";
+var ligneVide;
+function initialiseS()
+{
+  s="";
+  var i;
+  //s=ligneBottom+"\n";// io.println("");
+
+  ligneVide="";
+  ligneVide=ligneVide+"*"; // io.print("*");
+  for(i=0;i<n-2;i+=1)
+  {
+    ligneVide=ligneVide+" "; // io.print("*");
+  }
+  ligneVide=ligneVide+"*\n"; //  io.println("*");
+  
+  for(i=0;i<20;i+=1)
+  {
+    s=s+ligneVide;
+  }
+
+  var ligneDuBas="";
+  for(i=0;i<n;i+=1)
+  {
+    ligneDuBas=ligneDuBas+"*"; // io.print("*");
+  }
+  s=s+ligneDuBas;  
+}
+
+function ecrisTetrisI(x,y,orientation,dessin)
+{
+  if ((orientation==0)||(orientation==2))
+  {
+    plot(x+1,y,dessin);
+    plot(x+1,y-1,dessin);
+    plot(x+1,y-2,dessin);
+    plot(x+1,y-3,dessin);
+  } else
+  {
+    plot(x,y,dessin);
+    plot(x+1,y,dessin);
+    plot(x+2,y,dessin);
+    plot(x+3,y,dessin);
+  }
+}
+
+function testCollisionTetrisI(x,y,orientation)
+{
+  if ((orientation==0)||(orientation==2))
+  {
+    if (get(x+1,y)!=' ') return true;
+    if (get(x+1,y-1)!=' ') return true;
+    if (get(x+1,y-2)!=' ') return true;
+    if (get(x+1,y-3)!=' ') return true;
+    return false;
+  } else
+  {
+    if (get(x,y)!=' ') return true;
+    if (get(x+1,y)!=' ') return true;
+    if (get(x+2,y)!=' ') return true;
+    if (get(x+3,y)!=' ') return true;
+    return false;
+  }
+}
+
+function ecrisTetrisL(x,y,o,dessin)
+{
+  if (o==0)
+  {
+    plot(x+1,y,dessin);
+    plot(x+1,y+1,dessin);
+    plot(x+1,y+2,dessin);
+    plot(x+2,y+2,dessin);
+  } else if (o==1)
+  {
+    plot(x+2,y+1,dessin);
+    plot(x,y+1,dessin);
+    plot(x,y+2,dessin);
+    plot(x+1,y+1,dessin);
+  } else if (o==2)
+  {
+    plot(x+1,y,dessin);
+    plot(x+1,y+1,dessin);
+    plot(x+1,y+2,dessin);
+    plot(x,y,dessin);
+  } else if (o==3)
+  {
+    plot(x+2,y+2,dessin);
+    plot(x+2,y+1,dessin);
+    plot(x,y+2,dessin);
+    plot(x+1,y+2,dessin);
+  }  
+}
+
+function testCollisionTetrisL(x,y,o)
+{
+  if (o==0)
+  {
+    if (get(x+1,y)!=' ') return true;
+    if (get(x+1,y+1)!=' ') return true;
+    if (get(x+1,y+2)!=' ') return true;
+    if (get(x+2,y+2)!=' ') return true;
+    return false;
+  } else if (o==1)
+  {
+    if (get(x+2,y+1)!=' ') return true;
+    if (get(x,y+1)!=' ') return true;
+    if (get(x,y+2)!=' ') return true;
+    if (get(x+1,y+1)!=' ') return true;
+    return false;
+  } else if (o==2)
+  {
+    if (get(x+1,y)!=' ') return true;
+    if (get(x+1,y+1)!=' ') return true;
+    if (get(x+1,y+2)!=' ') return true;
+    if (get(x,y)!=' ') return true;
+    return false;
+  } else if (o==3)
+  {
+    if (get(x+2,y+2)!=' ') return true;
+    if (get(x+2,y+1)!=' ') return true;
+    if (get(x,y+2)!=' ') return true;
+    if (get(x+1,y+2)!=' ') return true;
+    return false;
+  }  
+}
+function ecrisTetrisT(x,y,o,dessin)
+{
+  if (o==0)
+  {
+    plot(x,y+1,dessin);
+    plot(x+1,y+1,dessin);
+    plot(x-1,y+1,dessin);
+    plot(x,y,dessin);
+  } else if (o==1)
+  {
+    plot(x,y+1,dessin);
+    plot(x+1,y+1,dessin);
+    plot(x,y+2,dessin);
+    plot(x,y,dessin);
+  } else if (o==2)
+  {
+    plot(x,y+1,dessin);
+    plot(x+1,y+1,dessin);
+    plot(x-1,y+1,dessin);
+    plot(x,y+2,dessin);
+  } else // 3
+  {
+    plot(x,y+1,dessin);
+    plot(x,y+2,dessin);
+    plot(x-1,y+1,dessin);
+    plot(x,y,dessin);
+  } 
+}
+
+function testCollisionTetrisT(x,y,o,dessin)
+{
+  if (o==0)
+  {
+    if (get(x,y+1)!=' ') return true;
+    if (get(x+1,y+1)!=' ') return true;
+    if (get(x-1,y+1)!=' ') return true;
+    if (get(x,y)!=' ') return true;
+    return false;
+  } else if (o==1)
+  {
+    if (get(x,y+1)!=' ') return true;
+    if (get(x+1,y+1)!=' ') return true;
+    if (get(x,y+2)!=' ') return true;
+    if (get(x,y)!=' ') return true;
+    return false;
+  } else if (o==2)
+  {
+    if (get(x,y+1)!=' ') return true;
+    if (get(x+1,y+1)!=' ') return true;
+    if (get(x-1,y+1)!=' ') return true;
+    if (get(x,y+2)!=' ') return true;
+    return false;
+  } else // 3
+  {
+    if (get(x,y+1)!=' ') return true;
+    if (get(x,y+2)!=' ') return true;
+    if (get(x-1,y+1)!=' ') return true;
+    if (get(x,y)!=' ') return true;
+    return false;
+  } 
+}
+function ecrisTetrisS(x,y,o,dessin)
+{
+  if((o==0)||(o==2))
+  {
+    plot(x,y+1,dessin);
+    plot(x+1,y,dessin);
+    plot(x-1,y+1,dessin);
+    plot(x,y,dessin);
+  } else 
+  {
+    plot(x,y+1,dessin);
+    plot(x+1,y+2,dessin);
+    plot(x+1,y+1,dessin);
+    plot(x,y,dessin);
+  }
+}
+function testCollisionTetrisS(x,y,o)
+{
+  if((o==0)||(o==2))
+  {
+    if (get(x,y+1)!=' ') return true;
+    if (get(x+1,y)!=' ') return true;
+    if (get(x-1,y+1)!=' ') return true;
+    if (get(x,y)!=' ') return true;
+    return false;
+  } else 
+  {
+    if (get(x,y+1)!=' ') return true;
+    if (get(x+1,y+2)!=' ') return true;
+    if (get(x+1,y+1)!=' ') return true;
+    if (get(x,y)!=' ') return true;
+    return false;
+  }
+}
+function ecrisTetrisZ(x,y,o,dessin)
+{
+  if((o==0)||(o==2))
+  {
+    plot(x,y+1,dessin);
+    plot(x+1,y+1,dessin);
+    plot(x-1,y,dessin);
+    plot(x,y,dessin);
+  } else
+  {
+    plot(x+1,y+1,dessin);
+    plot(x,y+1,dessin);
+    plot(x,y+2,dessin);
+    plot(x+1,y,dessin);
+  }
+}
+function testCollisionTetrisZ(x,y,o)
+{
+  if((o==0)||(o==2))
+  {
+    if (get(x,y+1)!=' ') return true;
+    if (get(x+1,y+1)!=' ') return true;
+    if (get(x-1,y)!=' ') return true;
+    if (get(x,y)!=' ') return true;
+    return false;
+  } else
+  {
+    if (get(x+1,y+1)!=' ') return true;
+    if (get(x,y+1)!=' ') return true;
+    if (get(x,y+2)!=' ') return true;
+    if (get(x+1,y)!=' ') return true;
+    return false;
+  }
+}
+function ecrisTetrisC(x,y,o,dessin)
+{
+    plot(x,y+1,dessin);
+    plot(x+1,y+1,dessin);
+    plot(x+1,y,dessin);
+    plot(x,y,dessin);
+}
+function testCollisionTetrisC(x,y)
+{
+  if (get(x,y+1)!=' ') return true;
+  if (get(x+1,y+1)!=' ') return true;
+  if (get(x+1,y)!=' ') return true;
+  if (get(x,y)!=' ') return true;
+  return false;
+}
+
+function ecrisTetrisLL(x,y,o,dessin)
+{
+  if (o==0)
+  {
+    plot(x,y+1,dessin);
+    plot(x,y+2,dessin);
+    plot(x-1,y+2,dessin);
+    plot(x,y,dessin);
+  } else if (o==1)
+  {
+    plot(x+1,y+2,dessin);
+    plot(x,y+2,dessin);
+    plot(x-1,y+2,dessin);
+    plot(x-1,y+1,dessin);
+  } else if (o==2)
+  {
+    plot(x,y+1,dessin);
+    plot(x+1,y+1,dessin);
+    plot(x,y+2,dessin);
+    plot(x,y+3,dessin);
+  } else
+  {
+    plot(x,y+1,dessin);
+    plot(x+1,y+1,dessin);
+    plot(x-1,y+1,dessin);
+    plot(x+1,y+2,dessin);
+  }
+}
+function testCollisionTetrisLL(x,y,o)
+{
+  if (o==0)
+  {
+    if (get(x,y+1)!=' ') return true;
+    if (get(x,y+2)!=' ') return true;
+    if (get(x-1,y+2)!=' ') return true;
+    if (get(x,y)!=' ') return true;
+    return false;
+  } else if (o==1)
+  {
+    if (get(x+1,y+2)!=' ') return true;
+    if (get(x,y+2)!=' ') return true;
+    if (get(x-1,y+2)!=' ') return true;
+    if (get(x-1,y+1)!=' ') return true;
+    return false;
+  } else if (o==2)
+  {
+    if (get(x,y+1)!=' ') return true;
+    if (get(x+1,y+1)!=' ') return true;
+    if (get(x,y+2)!=' ') return true;
+    if (get(x,y+3)!=' ') return true;
+    return false;
+  } else
+  {
+    if (get(x,y+1)!=' ') return true;
+    if (get(x+1,y+1)!=' ') return true;
+    if (get(x-1,y+1)!=' ') return true;
+    if (get(x+1,y+2)!=' ') return true;
+    return false;
+  }
+}
+
+var piece_id=0;
+var piece_id_suivant=0;
+
+function ecrisTetris(x,y,o)
+{
+  if (piece_id==0) ecrisTetrisI(x,y,o,'A');
+  else if (piece_id==1) ecrisTetrisL(x,y,o,'B');
+  else if (piece_id==2) ecrisTetrisT(x,y,o,'C');
+  else if (piece_id==3) ecrisTetrisC(x,y,o,'D');
+  else if (piece_id==4) ecrisTetrisS(x,y,o,'E');
+  else if (piece_id==5) ecrisTetrisZ(x,y,o,'F');
+  else ecrisTetrisLL(x,y,o,'G');
+}
+
+function effacerTetris(x,y,o)
+{
+  if (piece_id==0) ecrisTetrisI(x,y,o,' ');
+  else if (piece_id==1) ecrisTetrisL(x,y,o,' ');
+  else if (piece_id==2) ecrisTetrisT(x,y,o,' ');
+  else if (piece_id==3) ecrisTetrisC(x,y,o,' ');
+  else if (piece_id==4) ecrisTetrisS(x,y,o,' ');
+  else if (piece_id==5) ecrisTetrisZ(x,y,o,' ');
+  else ecrisTetrisLL(x,y,o,' ');
+}
+
+function testCollisionTetris(x,y,o)
+{
+  if (piece_id==0) return testCollisionTetrisI(x,y,o);
+  if (piece_id==1) return testCollisionTetrisL(x,y,o);
+  if (piece_id==2) return testCollisionTetrisT(x,y,o);
+  if (piece_id==3) return testCollisionTetrisC(x,y,o);
+  if (piece_id==4) return testCollisionTetrisS(x,y,o);
+  if (piece_id==5) return testCollisionTetrisZ(x,y,o);
+  return testCollisionTetrisLL(x,y,o);
+}
+
+function estLigneComplete(y)
+{
+    var i;
+    var c;
+    for(i=1;i<n;i++)
+    {
+       c=get(i,y);
+       if(c==' ')
+        {
+            return false; 
+        } 
+    } 
+    return true;
+}
+
+function imprimerS()
+{
+  io.clr(); 
+  var s2=s;
+  s2=s2.replace(/\*/g,"<span style='color:808080'>&#x2588;</span>")
+  s2=s2.replace(/A/g,"<span style='color:01f1f2'>&#x2588;</span>")
+  s2=s2.replace(/B/g,"<span style='color:ef8201'>&#x2588;</span>")
+  s2=s2.replace(/C/g,"<span style='color:a001f1'>&#x2588;</span>")
+  s2=s2.replace(/D/g,"<span style='color:f8e608'>&#x2588;</span>")
+  s2=s2.replace(/E/g,"<span style='color:02f102'>&#x2588;</span>")
+  s2=s2.replace(/F/g,"<span style='color:f00001'>&#x2588;</span>")
+  s2=s2.replace(/G/g,"<span style='color:0100f1'>&#x2588;</span>")
+  io.print(s2); 
+}
+
+var piece_y=-1;
+var piece_o=0;
+var piece_x=4;
+var score=0;
+var ligneClear=0;
+
+function augmenterScore(x)
+{
+  score=score+x;
+  io2.clr();
+  io2.print("Score: "+score+"\n\nLignes: "+ligneClear+"\n\nNiveau: "+Math.floor(ligneClear/10)+"\n\n\nSuivant:\n\n");
+
+  // afficher "piece_id_suivant"
+  if (piece_id_suivant==0)
+  {
+    var t="    AAAA";
+    t=t.replace(/A/g,"<span style='color:01f1f2'>&#x2588;</span>")
+    io2.println(t);
+  } else if (piece_id_suivant==1)
+  {
+    var l="    b\n    b\n    bb"
+    l=l.replace(/b/g,"<span style='color:ef8201'>&#x2588;</span>")
+    io2.println(l);
+  } else if (piece_id_suivant==2)
+  {
+    var tp="    ccc\n     c"
+  tp=tp.replace(/c/g,"<span style='color:a001f1'>&#x2588;</span>")
+    io2.println(tp);
+  } else if (piece_id_suivant==3)
+  {
+    var c="    dd\n    dd"
+  c=c.replace(/d/g,"<span style='color:f8e608'>&#x2588;</span>")
+    io2.println(c);
+  } else if (piece_id_suivant==4)
+  {
+    var s="     ee\n    ee"
+    s=s.replace(/e/g,"<span style='color:02f102'>&#x2588;</span>")
+    io2.println(s);
+  } else if (piece_id_suivant==5)
+  {
+    var z="    ff\n     ff"
+    z=z.replace(/f/g,"<span style='color:f00001'>&#x2588;</span>")
+    io2.println(z);
+  } else
+  {
+    var ll="    b\n    b\n   bb"
+    ll=ll.replace(/b/g,"<span style='color:0100f1'>&#x2588;</span>")
+    io2.println(ll);
+  } 
+  io2.println("\n\n\nControles:\n  flêches du clavier");
+}
+
+function bougerPiece()
+{
+  if (piece_y>=0) effacerTetris(piece_x,piece_y,piece_o);
+  piece_y+=1;
+ // plot(4,10,'F');
+  var collision=testCollisionTetris(piece_x,piece_y,piece_o);
+  if (collision==true)
+  {
+    ecrisTetris(piece_x,piece_y-1,piece_o);
+
+    // enlève toutes les lignes complètes
+    var y;
+    var counter=0;
+    for(y=0;y<20;y++)
+    {
+      if (estLigneComplete(y))
+      {
+        counter++;
+        // effacer la ligne
+        var p=y*(n+1);
+        s=ligneVide+s.substr(0,p)+s.substr(p+n+1);
+        ligneClear++;
+        augmenterScore(100);
+      }
+    }
+    new Audio("media/tetrisk_land.mp3").play();
+    if(counter==4)
+    {
+      new Audio("media/tetrisk_tetrisk.mp3").play();
+    } else if (counter>0)
+    {
+      new Audio("media/tetrisk_line.mp3").play();
+    }
+    // préparer pièce suivante
+    piece_id=piece_id_suivant;
+    piece_id_suivant=Math.floor(Math.random()*7);
+    augmenterScore(0);  
+    // afficher nouvelle pièce en haut
+    piece_y=0;
+    piece_o=0;
+    piece_x=4;
+
+    // test pour détecter la fin du jeu
+    collision=testCollisiontetrisk(piece_x,piece_y,piece_o);
+    if (collision==true)
+    {
+      io2.println("\n\nGAME OVER")
+      io2.close();
+      musicA.pause(); musicA.currentTime=0;
+      musicB.pause(); musicB.currentTime=0;
+      musicC.pause(); musicC.currentTime=0;
+      new Audio("media/tetrisk_gameover.mp3").play();
+      return;
+    }
+  }
+  ecrisTetris(piece_x,piece_y,piece_o);
+  imprimerS();
+
+  var vitesse=1000;
+  var niveau=Math.floor(ligneClear/10);
+  vitesse=vitesse-20*niveau;
+  reveil = setTimeout(bougerPiece,vitesse);
+}
+
+function aller_a_droite()
+{
+ /*droite*/  
+  effacerTetris(piece_x,piece_y,piece_o);
+  if (testCollisionTetris(piece_x+1,piece_y,piece_o)==false)
+  {
+    piece_x=piece_x+1;
+    new Audio("media/tetrisk_move.mp3").play();
+  }
+  ecrisTetris(piece_x,piece_y,piece_o);
+  imprimerS();
+}
+
+function aller_a_gauche()
+{ /*gauche*/  
+    effacerTetris(piece_x,piece_y,piece_o);
+    if (testCollisionTetris(piece_x-1,piece_y,piece_o)==false)
+    {
+      piece_x=piece_x-1;
+      new Audio("media/tetrisk_move.mp3").play();
+    }
+    ecrisTetris(piece_x,piece_y,piece_o);
+    imprimerS();
+}
+function tourner()
+{/*espace or haut*/  
+  effacerTetris(piece_x,piece_y,piece_o);
+    var orientation_de_depart=piece_o;
+    piece_o=piece_o+1;
+    if(piece_o==4) piece_o=0;
+    while (testCollisionTetris(piece_x,piece_y,piece_o)==true)
+    {
+      piece_o=piece_o+1;
+      if(piece_o==4) piece_o=0;
+    }
+    ecrisTetris(piece_x,piece_y,piece_o);
+    imprimerS();
+    if(orientation_de_depart!=piece_o)
+    {
+      new Audio("media/tetrisk_rotate.mp3").play();
+    }
+}
+function descendre()
+{ /*bas*/  
+    augmenterScore(1);
+    clearTimeout(reveil);
+    bougerPiece();
+}
+
+function keyPressed(event)
+{
+  if (event.keyCode === 40) descendre();
+  else if (event.keyCode === 39) aller_a_droite();
+  else if (event.keyCode === 37) aller_a_gauche();
+  else if ((event.keyCode === 32)||(event.keyCode === 38)) tourner();
+}
+
+co(function*(){
+  io.println("\nSelect\n  Music:\n");
+  var r=yield io.click("99","GameBoy","Blitz","No Music");
+  if(r=="99") musicB.play();
+  else if(r=="GameBoy") musicC.play();
+  else if(r=="Blitz") musicA.play();
+  io.clr();
+  initialiseS();
+  piece_id=Math.floor(Math.random()*7);
+  piece_id_suivant=Math.floor(Math.random()*7);
+  augmenterScore(0);
+  document.addEventListener("keydown",keyPressed);
+  reveil = setTimeout(bougerPiece,1);
+})
+</script>
+</body>
+</html>
