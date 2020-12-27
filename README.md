@@ -81,6 +81,10 @@ Here is a small JavaScript demonstration program (it's really self-explanatory!)
 Here is a video-screen-capture of the execution of the above program:
 ![demo_gif](https://github.com/Kranf99/IOKranf/blob/main/demo.gif)
 
+You'll get more documentation (although a little bit outdated) <a href="https://bitbucket.org/sumukhbarve/iocream/src" target="_blank">here</a>.
+
+# The Demos
+
 Inside the "demos" directory, you'll find a few games made with the IOKranf library:
 * A simple text-based adventure in the same spirit of Zork: <br>
   See the file "zork_mini.html" (or "zork_mini_FR.html" for the french version).
@@ -108,11 +112,11 @@ Inside the "demos" directory, you'll find a few games made with the IOKranf libr
    
 * A fast Mental Calculation game where you need to compute an addition in a limited amount of time.<br>
   See the file "Mental_calculation.html"
-
-You'll get more documentation (although a little bit outdated) <a href="https://bitbucket.org/sumukhbarve/iocream/src" target="_blank">here</a>.
+  
+# Closing notes.
 
 The library is under "MIT License", so that anybody can use it for free!
-
+Don't hesitate to contact me if you want to propose some improvements the libary!
 Have fun!
 
 Frank
