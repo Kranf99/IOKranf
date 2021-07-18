@@ -85,19 +85,19 @@ You'll get more documentation (although a little bit outdated) <a href="https://
 
 Inside the "demos" directory, you'll find a few games made with the IOKranf library:
 * A simple text-based adventure in the same spirit of <a target="_blank" href="https://en.wikipedia.org/wiki/Zork">Zork</a>: <br>
-  See the file "zork_mini.html" (or "zork_mini_FR.html" for the french version).
+  See the file "[zork_mini.html](demos/zork_mini.html)" (or "[zork_mini_FR.html](demos/zork_mini_FR.html)" for the french version).
   
 * A simple "Tron/Snake" game: <br>
-  See the file "tron.html"
+  See the file "[tron.html](demos/tron.html)"
   
 * A simple variation of the "Tetris" game.<br>
   To create this game, we wrote first several "intermediary", simpler projects:
-   - "draw_square_v1.html" (or "draw_square_v1_FR.html" for the french version).
-   - "draw_square_v2.html" (or "draw_square_v2_FR.html" for the french version).
-   - "simple_tetrisk_v0.html"
-   - "simple_tetrisk_v1.html": This project already does everything what the final "tetrisk.html" project does but the code can be improved.
+   - "[draw_square_v1.html](demos/draw_square_v1.html)" (or "[draw_square_v1_FR.html](demos/draw_square_v1_FR.html)" for the french version).
+   - "[draw_square_v2.html](demos/draw_square_v2.html)" (or "[draw_square_v2_FR.html](demos/draw_square_v2_FR.html)" for the french version).
+   - "[simple_tetrisk_v0.html](demos/simple_tetrisk_v0.html)"
+   - "[simple_tetrisk_v1.html](demos/simple_tetrisk_v1.html)": This project already does everything what the final "[tetrisk.html](demos/tetrisk.html)" project does but the code can be improved.
    
-  The final "Tetromino" game is inside the file "tetrisk.html" (or "tetrisk_FR.html" for the french version).
+  The final "Tetromino" game is inside the file "[tetrisk.html](demos/tetrisk.html)" (or "[tetrisk_FR.html](demos/tetrisk_FR.html)" for the french version).
   This "Tetromino" game is complete & playable: It has music, soundfx, display of next piece, high score.
   Furthermore, it works in all browsers that supports a keyboard (i.e. you need the "arrow keys" to move the tetromino)!
   And it's really fun to play!
@@ -109,7 +109,7 @@ Inside the "demos" directory, you'll find a few games made with the IOKranf libr
    - <a target="_blank" href="https://tetris.fandom.com/wiki/Tetris_Guideline">add T-Spin, a lock-delay (difficult!).</a>
    
 * A fast Mental Calculation game where you need to compute an addition in a limited amount of time.<br>
-  See the file "Mental_calculation.html"
+  See the file "[Mental_calculation.html](demos/Mental_calculation.html)"
   
 # Closing notes.
 
