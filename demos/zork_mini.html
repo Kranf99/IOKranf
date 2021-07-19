@@ -18,18 +18,18 @@ var io=new IOKranf('iokranf_container');
 var io2=new IOKranf('container2');
 var status="naked";
 
-function *pageCourt()
+async function pageCourt()
 {
   io.printhr();
   new Audio("media/tetrisk_move.mp3").play();
   io.printImage("media/zork_castle_court.jpg","300px");
   io.println("\nYou are standing in the interior court of the castle.");
-  var x=yield io.click("Go to the Castle Gate","Enter the armory");
-  if (x=="Enter the armory") co(pageArmory());
+  var x=await io.click("Go to the Castle Gate","Enter the armory");
+  if (x=="Enter the armory") await pageArmory();
   else if (x=="Go to the Castle Gate") pageGate();
 }
 
-function *pageArmory()
+async function pageArmory()
 {
   new Audio("media/tetrisk_move.mp3").play();
   io.printhr();
@@ -37,7 +37,7 @@ function *pageArmory()
   io.println("\nYou are in the armory.There are plenty of weapons and a bottle.");
   for(;;)
   {
-    var x=yield io.click("Take a weapon","Drink the bottle","Go back in the court");
+    var x=await io.click("Take a weapon","Drink the bottle","Go back in the court");
     if (x=="Take a weapon") 
     {
       if (status=="naked")
@@ -70,7 +70,7 @@ function *pageArmory()
     }
     else if (x=="Go back in the court") break; 
   }
-  co(pageCourt()); 
+  await pageCourt();
 }
 
 function pageGate()
@@ -96,7 +96,7 @@ function pageGate()
   io.autoScroll(true);
   io.println("OBJECTIVE: You need to escape from the castle.\n");
   io2.printImage("media/zork_inventory1.png","120px");
-  co(pageCourt());
+  pageCourt();
 }
 </script>
 </body>
