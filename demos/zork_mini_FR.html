@@ -25,11 +25,11 @@ async function pageCour()
   io.printImage("media/zork_castle_court.jpg","300px");
   io.println("\nVous vous trouvez dans la cour intérieure du château.");
   var x=await io.click("Aller à la porte du château","Entrer dans l'armurerie");
-  if (x=="Entrer dans l'armurerie") await pageArmurie();
+  if (x=="Entrer dans l'armurerie") await pageArmurerie();
   else if (x=="Aller à la porte du château") pagePorte();
 }
 
-async function pageArmurie()
+async function pageArmurerie()
 {
   new Audio("media/tetrisk_move.mp3").play();
   io.printhr();
@@ -78,7 +78,7 @@ function pagePorte()
   io.printhr();
   io.printImage("media/zork_castle_gate.jpg","300px");
   io.println("\nVous arrivez à la porte du château.\n"+
-             "Il y a une <a target='_blank' href='https://zork.fandom.com/wiki/Grue'>Grue Maléfique</a> qui vous y attends!");
+             "Il y a une <a target='_blank' href='https://zork.fandom.com/wiki/Grue'>Grue Maléfique</a> qui vous y attend !");
   if (status=="grue")
   {
     io.println("La Grue vous regarde et vous laisse passer.\nVous vous êtes échappé du château!\nVous avez gagné.");
