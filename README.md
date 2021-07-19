@@ -7,9 +7,9 @@ This library emulates a "console" with simple println and input command.
 This javascript library is inspired by the great C's <iostream.h> library. 
 
 The actual code of the IOKranf library is a mixture of several projects:
-* IOCream library: https://bitbucket.org/sumukhbarve/iocream/
-* Promise-Alert project: https://github.com/rBurgett/promise-alert
-* The "co" package: https://www.npmjs.com/package/co
+* IOCream library: [https://bitbucket.org/sumukhbarve/iocream/]
+* Promise-Alert project: [https://github.com/rBurgett/promise-alert]
+* The "co" package: [https://www.npmjs.com/package/co]
 
 Thanks for the many contributors to these projects: Without them this library would not exist!
 
