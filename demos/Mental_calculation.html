@@ -38,13 +38,13 @@ function refreshTimer()
     alarm=setTimeout(refreshTimer,100);
 }
 
-co(function*(){
+(async function(){
   var maxNumber=10;
   var a=Math.floor(Math.random()*maxNumber+1);
   var b=Math.floor(Math.random()*maxNumber+1);
   response=a+b;
   alarm=setTimeout(refreshTimer,100);
-  var x=yield io.input(a+" + "+b+" =? ");
+  var x=await io.input(a+" + "+b+" =? ");
   clearTimeout(alarm);
   if (Number(x)!=response) io.println("You lost! The correct answer was "+response);
   else
@@ -54,7 +54,7 @@ co(function*(){
 	 io.println("You win in "+Math.round(elapsedTime/10)/100+" second(s) (or "+elapsedTime+" milliseconds).");
   }
   io.close();
-})
+})();
 
 </script>
 </body>

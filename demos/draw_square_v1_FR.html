@@ -12,11 +12,11 @@
 <script>
 "use strict";
 var io=new IOKranf('iokranf_container');
-co(function*(){
+(async function() {
    var j;
   io.println('Hello World!');
   io.printhr();
-  var n=yield io.input('Donnez la taille du carré:');
+  var n=await io.input('Donnez la taille du carré:');
   if(n==1)
   io.print("*");
   else
@@ -55,6 +55,6 @@ co(function*(){
   io.println('**********');
 */
 io.close();
-})</script>
+})();</script>
 </body>
 </html>

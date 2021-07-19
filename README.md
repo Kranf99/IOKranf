@@ -55,9 +55,9 @@ The library gives access to a few different functions. The most important ones a
 ```
   io.println()    : Prints a message inside the "console".
   io.printhr()    : Prints a large horizontal bar inside the "console".
-  yield io.input(): Creates a inline input box inside the "console"; the user must hit Enter to submit the input.
-  yield io.click(): Creates a horizontal list of buttons for the user to click on.
-  yield sleep(ms) : Sleep ms milliseconds (and refresh the screen during sleep).
+  await io.input(): Creates a inline input box inside the "console"; the user must hit Enter to submit the input.
+  await io.click(): Creates a horizontal list of buttons for the user to click on.
+  await sleep(ms) : Sleep ms milliseconds (and refresh the screen during sleep).
   io.clr()        : Clear all text inside the "console".
   io.close()      : If your program has finished, you can clearly indicate that by calling close().
 ```
@@ -68,10 +68,10 @@ Here is a small JavaScript demonstration program (it's really self-explanatory!)
   io.printhr();
     
   io.println('Are you happy?!');
-  var r=yield io.click('yes','no');
+  var r=await io.click('yes','no');
   io.println('you clicked '+r+'\n');
 	
-  var s=yield io.input('Enter your name:');
+  var s=await io.input('Enter your name:');
   io.println('Hello '+s+'\n');
   io.close();
 ```

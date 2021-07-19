@@ -11,7 +11,7 @@
 <script>
 "use strict";
 var io=new IOKranf('iokranf_container');
-co(function*(){
+(async function() {
 
 var music=new Audio("media/tetrisk_Music_GameBoy.m4a"); music.loop=true; music.volume=0.3;
 var s;
@@ -55,7 +55,7 @@ function drawTetrisL(x,y)
 
 {
   io.println("Ready?");
-  yield io.click("Yes!");
+  await io.click("Yes!");
   io.clr();
   music.play();
   var y=0;
@@ -63,14 +63,14 @@ function drawTetrisL(x,y)
   {
     initializeS();
     drawTetrisL(4,y);
-    yield sleep(200);
+    await sleep(200);
     io.clr(); io.print(s);
   }
   new Audio("media/tetrisk_land.mp3").play();
   music.pause(); music.currentTime=0;
   io.close();
 }
-})
+})();
 </script>
 </body>
 </html>

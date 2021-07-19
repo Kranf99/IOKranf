@@ -613,9 +613,9 @@ function keyPressed(event)
   else if ((event.keyCode === 32)||(event.keyCode === 38)) tourner();
 }
 
-co(function*(){
+(async function() {
   io.println("\nSelect\n  Music:\n");
-  var r=yield io.click("99","GameBoy","Blitz","No Music");
+  var r=await io.click("99","GameBoy","Blitz","No Music");
   if(r=="99") musicB.play();
   else if(r=="GameBoy") musicC.play();
   else if(r=="Blitz") musicA.play();
@@ -626,7 +626,7 @@ co(function*(){
   augmenterScore(0);
   document.addEventListener("keydown",keyPressed);
   reveil = setTimeout(bougerPiece,1);
-})
+})();
 </script>
 </body>
 </html>

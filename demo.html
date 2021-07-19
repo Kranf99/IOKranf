@@ -11,19 +11,19 @@
 <script>
 "use strict";
 var io=new IOKranf('iokranf_container');
-co(function*(){
+(async function(){
 
   io.println('Hello!');
   io.printhr();
     
   io.println('Are you happy?!');
-  var r=yield io.click('yes','no');
+  var r=await io.click('yes','no');
   io.println('you clicked '+r+'\n');
 	
-  var s=yield io.input('Enter your name:');
+  var s=await io.input('Enter your name:');
   io.println('Hello '+s+'\n');
   io.close();
 
-})</script>
+})();</script>
 </body>
 </html>

@@ -18,18 +18,18 @@ var io=new IOKranf('iokranf_container');
 var io2=new IOKranf('container2');
 var status="naked";
 
-function *pageCour()
+async function pageCour()
 {
   io.printhr();
   new Audio("media/tetrisk_move.mp3").play();
   io.printImage("media/zork_castle_court.jpg","300px");
   io.println("\nVous vous trouvez dans la cour intérieure du château.");
-  var x=yield io.click("Aller à la porte du château","Entrer dans l'armurerie");
-  if (x=="Entrer dans l'armurerie") co(pageArmurie());
+  var x=await io.click("Aller à la porte du château","Entrer dans l'armurerie");
+  if (x=="Entrer dans l'armurerie") await pageArmurie();
   else if (x=="Aller à la porte du château") pagePorte();
 }
 
-function *pageArmurie()
+async function pageArmurie()
 {
   new Audio("media/tetrisk_move.mp3").play();
   io.printhr();
@@ -37,7 +37,7 @@ function *pageArmurie()
   io.println("\nVous êtes dans l'armurerie, il y a plein d'armes et une bouteille.");
   for(;;)
   {
-    var x=yield io.click("Prendre une arme","Boire la bouteille","Retourner dans la cour");
+    var x=await io.click("Prendre une arme","Boire la bouteille","Retourner dans la cour");
     if (x=="Prendre une arme") 
     {
       if (status=="naked")
@@ -70,7 +70,7 @@ function *pageArmurie()
     }
     else if (x=="Retourner dans la cour") break; 
   }
-  co(pageCour()); 
+  await pageCour();
 }
 
 function pagePorte()
@@ -96,7 +96,7 @@ function pagePorte()
   io.autoScroll(true);
   io.println("OBJECTIF : Vous devez vous échapper du château.\n");
   io2.printImage("media/zork_inventory1.png","120px");
-  co(pageCour());
+  pageCour();
 }
 </script>
 </body>

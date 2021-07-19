@@ -19,7 +19,7 @@ var musicB=new Audio("media/tetrisk_Music_99.m4a"); musicB.loop=true; musicB.vol
 var musicC=new Audio("media/tetrisk_Music_GameBoy.m4a"); musicC.loop=true; musicC.volume=0.30;
 var io=new IOKranf('iokranf_container');
 var io2=new IOKranf('container2');
-co(function*(){
+(async function() {
 var s="",n=10;
 var reveil;
 
@@ -340,7 +340,7 @@ function keyPressed(event)
   piece_id=piece_id_suivant; piece_id_suivant=Math.floor(Math.random()*7);
   
   io.println("\nSelect\n  Music:\n");
-  var r=yield io.click("99","GameBoy","Blitz","No Music");
+  var r=await io.click("99","GameBoy","Blitz","No Music");
   if(r=="99") musicB.play();
   else if(r=="GameBoy") musicC.play();
   else if(r=="Blitz") musicA.play();
@@ -350,7 +350,7 @@ function keyPressed(event)
   document.addEventListener("keydown",keyPressed);
   reveil = setTimeout(bougerPiece,1);
 }
-})
+})();
 </script>
 </body>
 </html>
