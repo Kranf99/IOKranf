@@ -4,7 +4,7 @@ Educational library in Javascript that is great for kids to learn programming.
 
 This library emulates a "console" with simple println and input command. 
 
-This javascript library is inspired by the great C's <iostream.h> library. 
+This javascript library is inspired by the great C's <stdio.h> library. 
 
 The actual code of the IOKranf library is a mixture of several projects:
 * IOCream library: [https://bitbucket.org/sumukhbarve/iocream/]
